@@ -1,0 +1,67 @@
+html연결해서 개발서버 오픈하기
+
+>npm i -D html-webpack-plugin
+
+
+webpack.config.js 수정
+
+// import
+const path = require('path')
+const HtmlPlugin = require('html-webpack-plugin')
+
+//export 
+module.exports = {
+    //parcel index.html
+    //파일을 읽어들이기 시작하는 진입점 설정(js파일로 진입한다.)
+    entry : './js/main.js',
+    
+    //결과물 (번들)을 반환하는 설정
+    output : {
+        // path : path.resolve(__dirname,'dist'),
+        // filename : 'main.js',
+        clean : true
+    },
+
+
+    //번들링 후 결과물의 처리 방식 등 다양한 플러그인들을 설정
+    plugins : [
+        new HtmlPlugin({
+            template : './index.html'
+        })
+    ],
+    
+    devServer : {
+        host : 'localhost'
+    }
+}
+
+개발서버 열기
+> npm run dev
+
+
+[결과]
+
+webpack-template-basic@1.0.0 dev
+webpack-dev-server --mode development
+
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:8080/, http://127.0.0.1:8080/
+<i> [webpack-dev-server] Content not from webpack is served from 'D:\98. 개인폴더\BundlerStudy\webpack-template-basic\public' directory
+asset main.js 283 KiB [emitted] (name: main)
+asset index.html 435 bytes [emitted]
+runtime modules 27.2 KiB 13 modules
+modules by path ./node_modules/ 196 KiB
+  modules by path ./node_modules/webpack-dev-server/client/ 50.1 KiB 12 modules
+  modules by path ./node_modules/webpack/hot/*.js 4.3 KiB 4 modules
+  modules by path ./node_modules/html-entities/lib/*.js 81.3 KiB 4 modules
+  modules by path ./node_modules/url/ 37.4 KiB 3 modules
+  modules by path ./node_modules/querystring/*.js 4.51 KiB
+    ./node_modules/querystring/index.js 127 bytes [built] [code generated]
+    ./node_modules/querystring/decode.js 2.34 KiB [built] [code generated]
+    ./node_modules/querystring/encode.js 2.04 KiB [built] [code generated]
+  ./node_modules/ansi-html/index.js 4.16 KiB [built] [code generated]
+  ./node_modules/events/events.js 14.5 KiB [built] [code generated]
+./js/main.js 29 bytes [built] [code generated]
+webpack 5.65.0 compiled successfully in 409 ms
+
+이런식으로 나온다.

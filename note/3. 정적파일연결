@@ -1,0 +1,54 @@
+[폴더생성]
+static 폴더
+    -ico 파일
+    / images 폴더 
+        - png파일
+
+
+html 파일
+<img src="./images/logo.png" alt="logo"/> 
+이미지는 images라는 상대경로로 지정.
+
+
+[설치]
+> npm i -D copy-webpack-plugin
+
+[추가]
+webpack.config.js
+
+
+// import
+const path = require('path')
+const HtmlPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+
+//export 
+module.exports = {
+    //parcel index.html
+    //파일을 읽어들이기 시작하는 진입점 설정(js파일로 진입한다.)
+    entry : './js/main.js',
+    
+    //결과물 (번들)을 반환하는 설정
+    output : {
+        // path : path.resolve(__dirname,'dist'),
+        // filename : 'main.js',
+        clean : true
+    },
+
+
+    //번들링 후 결과물의 처리 방식 등 다양한 플러그인들을 설정
+    plugins : [
+        new HtmlPlugin({
+            template : './index.html'
+        }),
+        new CopyPlugin({
+            patterns : [
+                { from: 'static' }
+            ]
+        })
+    ],
+    
+    devServer : {
+        host : 'localhost'
+    }
+}

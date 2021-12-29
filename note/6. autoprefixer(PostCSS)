@@ -1,0 +1,60 @@
+main.scss
+
+
+$color--black : #000;
+$color--white : #fff;
+
+body{
+    background-color:$color--black;
+    h1{
+        display: flex;              //추가
+        color : $color--white;
+        font-size:40px;
+    }
+}
+
+
+[설치]
+>npm i -D postcss autoprefixer postcss-loader
+
+
+//공급업체 접두사 추가
+
+ module : {
+        rules : [
+            {
+                test : /\.s?css$/,
+                use : [
+                    //순서 중요
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',   
+                    'sass-loader'
+                ]
+            }
+        ]
+    },
+
+
+
+//package.json 추가
+
+"browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+
+
+
+
+//.postcssrc.js 파일 추가
+module.exports = {
+    plugins:[
+        require('autoprefixer')
+    ]
+}
+
+
+html태그 안의 쓰지않는 css링크 삭제
+<link rel="stylesheet" href="./css/main.css">
+지움

@@ -1,0 +1,7 @@
+.gitignore 파일 생성
+
+//작성
+.cache
+.DS_Store
+node_modules
+dist

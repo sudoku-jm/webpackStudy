@@ -1,0 +1,68 @@
+static / css 폴더 생성 / css 파일 넣음
+
+npm run dev 
+
+background 설정되어있는 것을 확인가능
+
+--
+
+css폴더를 root경로로 뺀다.
+
+main.js에 추가
+
+// import css from './css/main.css'
+import './css/main.css'
+
+
+--
+why?
+webpack.config.js 폴더를 보면
+
+entry : './js/main.js',
+
+가장 먼저 읽어들이기 시작하는 진입점이 main.js이다.
+
+main.css => main.js => index.html => dist 폴더로 내어주는 상황.
+
+--
+
+webpack자체는 css 파일을 읽어줄 수 없다.
+단지 그걸 합쳐서 dist 폴더에 내어줄 수는 있다.
+
+css를 읽어줄 수 있는 외부 패키지 설치.
+
+>npm i -D css-loader style-loader
+
+
+package.json 확인
+"devDependencies": {
+    "copy-webpack-plugin": "^10.2.0",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.0.0-rc.1"
+  }
+--
+webpack.config.js 추가
+
+'style-loader' : 해석된 내용을 실제로 사용할 수 있게 함.
+'css-loader' : js에서 css를 불러서 쓸 수있게끔함.
+
+module : {
+        rules : [
+            {
+                //.css확장자로 끝나는 것을 찾는 정규식.
+                test : /\.css$/,
+                use : [
+                    //순서 중요
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
+    },
+---
+main.js 수정
+import '../css/main.css'
